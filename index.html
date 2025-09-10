@@ -1,28 +1,911 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayaan Labs - AI Islamic Knowledge</title>
+    <meta name="description" content="NoorAi - AI-powered guidance for Qur'an, Hadith, and Islamic teachings. Learn, explore, and understand your faith intuitively.">
+    <meta name="author" content="Ayaan Labs">
+    <link rel="canonical" href="https://ayaanlabs.com">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Ayaan Labs - AI Islamic Knowledge">
+    <meta property="og:description" content="NoorAi - AI-powered guidance for Qur'an, Hadith, and Islamic teachings. Learn, explore, and understand your faith intuitively.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ayaanlabs">
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <title>Ayaan Labs - AI Islamic Knowledge</title>
-    <meta name="description" content="NoorAi - AI-powered guidance for Qur'an, Hadith, and Islamic teachings. Learn, explore, and understand your faith intuitively." />
-    <meta name="author" content="Ayaan Labs" />
-    <link rel="canonical" href="https://ayaanlabs.com" />
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-surface: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent-primary: #22c55e;
+            --accent-gold: #fbbf24;
+            --accent-blue: #3b82f6;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-glow: 0 0 40px rgba(34, 197, 94, 0.3);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Typography */
+        .text-gradient {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-primary);
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--accent-primary), #16a34a);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+            padding: 6rem 2rem 4rem;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        
+        .hero .subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), #16a34a);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--transition);
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-primary);
+            padding: 1rem 2rem;
+            border: 2px solid rgba(34, 197, 94, 0.5);
+            border-radius: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: var(--accent-primary);
+            transform: translateY(-3px);
+        }
+        
+        .hero-stats {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-1 {
+            top: 20%;
+            left: 10%;
+            width: 60px;
+            height: 60px;
+            transform: rotate(45deg);
+        }
+        
+        .floating-2 {
+            bottom: 30%;
+            right: 15%;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            animation-delay: 2s;
+        }
+        
+        .floating-3 {
+            top: 40%;
+            right: 20%;
+            width: 30px;
+            height: 30px;
+            background: rgba(251, 191, 36, 0.2);
+            border-radius: 50%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Sections */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .feature-card {
+            background: linear-gradient(145deg, var(--bg-secondary), rgba(51, 65, 85, 0.8));
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-gold));
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-description {
+            color: var(--text-secondary);
+        }
+        
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .team-card {
+            background: linear-gradient(145deg, var(--bg-secondary), rgba(51, 65, 85, 0.8));
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .team-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: var(--bg-surface);
+            border: 3px solid rgba(34, 197, 94, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .team-card:hover .team-photo {
+            transform: scale(1.05);
+            border-color: var(--accent-primary);
+        }
+        
+        .team-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-role {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+        
+        .team-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Download Section */
+        .download-section {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+            text-align: center;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, var(--accent-primary), #16a34a);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: var(--transition);
+            min-width: 200px;
+            justify-content: center;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.4);
+        }
+        
+        .download-btn.secondary {
+            background: transparent;
+            border: 2px solid rgba(34, 197, 94, 0.5);
+            color: var(--accent-primary);
+        }
+        
+        .download-btn.secondary:hover {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: var(--accent-primary);
+        }
+        
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .contact-card {
+            background: linear-gradient(145deg, var(--bg-secondary), rgba(51, 65, 85, 0.8));
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        
+        .contact-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-value {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 2rem 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent-primary);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section {
+                padding: 4rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <div class="logo">Ayaan Labs</div>
+            <nav class="nav">
+                <a href="#hero" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#story" class="nav-link">Our Story</a>
+                <a href="#download" class="nav-link">Download</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <a href="#download" class="cta-button">Get Started</a>
+        </div>
+    </header>
 
-    <meta property="og:title" content="Ayaan Labs - AI Islamic Knowledge" />
-    <meta property="og:description" content="NoorAi - AI-powered guidance for Qur'an, Hadith, and Islamic teachings. Learn, explore, and understand your faith intuitively." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="floating-element floating-1"></div>
+        <div class="floating-element floating-2"></div>
+        <div class="floating-element floating-3"></div>
+        
+        <div class="hero-content fade-in">
+            <h1>
+                <span class="text-gradient">NoorAi</span><br>
+                <span style="font-size: 0.6em; color: var(--text-secondary);">AI Islamic Knowledge</span>
+            </h1>
+            <p class="subtitle">
+                AI-powered guidance for Qur'an, Hadith, and Islamic teachings. 
+                Learn, explore, and understand your faith intuitively with cutting-edge technology.
+            </p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn-primary">Download Now</a>
+                <a href="#features" class="btn-secondary">Learn More</a>
+            </div>
+            <div class="hero-stats">
+                Trusted by over 100,000+ Muslims worldwide
+            </div>
+        </div>
+    </section>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    <!-- Features Section -->
+    <section class="section fade-in" id="features">
+        <h2 class="section-title text-gradient">Powerful Features</h2>
+        <p class="section-subtitle">
+            Discover how NoorAi revolutionizes Islamic learning with advanced AI technology 
+            and authentic scholarly content.
+        </p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <h3 class="feature-title">Qur'an Guidance</h3>
+                <p class="feature-description">
+                    Get AI-assisted understanding of Qur'an verses with contextual explanations, 
+                    translations, and scholarly interpretations.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3 class="feature-title">Hadith Insights</h3>
+                <p class="feature-description">
+                    Query authentic Hadiths and receive accurate, scholarly-backed explanations 
+                    with full chain of narration.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Personalized Learning</h3>
+                <p class="feature-description">
+                    Track your spiritual growth and receive customized recommendations 
+                    based on your learning preferences.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Offline Access</h3>
+                <p class="feature-description">
+                    Access essential teachings, prayers, and content without internet 
+                    connectivity for uninterrupted worship.
+                </p>
+            </div>
+        </div>
+    </section>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <!-- Our Story Section -->
+    <section class="section fade-in" id="story">
+        <h2 class="section-title text-gradient">Our Story</h2>
+        <div style="max-width: 800px; margin: 0 auto 4rem; text-align: center;">
+            <p class="section-subtitle" style="margin-bottom: 2rem;">
+                Ayaan Labs was founded with a vision to democratize Islamic knowledge through technology. 
+                Our mission began when we realized the vast gap between traditional Islamic learning and 
+                the digital age.
+            </p>
+            <p style="color: var(--text-secondary); font-size: 1.125rem;">
+                We combine cutting-edge AI with authentic Islamic scholarship to create tools that help 
+                Muslims deepen their understanding of faith, whether they're beginners seeking guidance 
+                or scholars conducting research.
+            </p>
+        </div>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo">AH</div>
+                <h3 class="team-name">Ahmad Hassan</h3>
+                <p class="team-role">Founder & Lead Developer</p>
+                <p class="team-description">
+                    Tech entrepreneur passionate about bridging Islamic knowledge with modern technology.
+                </p>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-photo">FA</div>
+                <h3 class="team-name">Fatima Al-Zahra</h3>
+                <p class="team-role">Co-Founder & AI Specialist</p>
+                <p class="team-description">
+                    AI researcher specializing in natural language processing for Arabic and Islamic texts.
+                </p>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-photo">OM</div>
+                <h3 class="team-name">Sheikh Omar Malik</h3>
+                <p class="team-role">Co-Founder & Content Advisor</p>
+                <p class="team-description">
+                    Islamic scholar ensuring authenticity and accuracy of all religious content.
+                </p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem; color: var(--text-muted); font-size: 0.875rem;">
+            <span style="display: inline-flex; align-items: center; gap: 1rem;">
+                <span style="width: 3rem; height: 1px; background: linear-gradient(to right, transparent, var(--accent-primary));"></span>
+                EST. 2024
+                <span style="width: 3rem; height: 1px; background: linear-gradient(to left, transparent, var(--accent-primary));"></span>
+            </span>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="section download-section fade-in" id="download">
+        <h2 class="section-title text-gradient">Download NoorAi</h2>
+        <p class="section-subtitle">
+            Join thousands of Muslims worldwide who trust NoorAi for authentic Islamic guidance. 
+            Available on all platforms.
+        </p>
+        
+        <!-- Stats -->
+        <div class="contact-grid" style="margin: 2rem 0;">
+            <div class="contact-card">
+                <div class="contact-icon">👥</div>
+                <div class="contact-label">100K+</div>
+                <div class="contact-value">Active Users</div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">⭐</div>
+                <div class="contact-label">4.9</div>
+                <div class="contact-value">App Rating</div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">🛡️</div>
+                <div class="contact-label">100%</div>
+                <div class="contact-value">Verified Content</div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📱</div>
+                <div class="contact-label">500K+</div>
+                <div class="contact-value">Downloads</div>
+            </div>
+        </div>
+        
+        <div class="download-buttons">
+            <a href="#" class="download-btn">
+                🍎 App Store
+            </a>
+            <a href="#" class="download-btn secondary">
+                📱 Google Play
+            </a>
+        </div>
+        
+        <p style="color: var(--text-muted); font-size: 0.875rem;">
+            Free download • No ads • Authentic content • Regular updates
+        </p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section fade-in" id="contact">
+        <h2 class="section-title text-gradient">Get In Touch</h2>
+        <p class="section-subtitle">
+            Have questions about NoorAi? Need support? We're here to help you on your 
+            spiritual journey.
+        </p>
+        
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">✉️</div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value">contact@ayaanlabs.com</div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📞</div>
+                <div class="contact-label">Support</div>
+                <div class="contact-value">+1 (555) 123-4567</div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📍</div>
+                <div class="contact-label">Location</div>
+                <div class="contact-value">San Francisco, CA</div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">💬</div>
+                <div class="contact-label">Live Chat</div>
+                <div class="contact-value">Available 24/7</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4 class="text-gradient">Ayaan Labs</h4>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                    Bridging Islamic knowledge with modern technology to empower Muslims worldwide.
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.875rem;">
+                    Made with ❤️ for the Ummah
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#download">Download</a></li>
+                    <li><a href="#">Updates</a></li>
+                    <li><a href="#contact">Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#story">About</a></li>
+                    <li><a href="#story">Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Ayaan Labs. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Initialize hero as visible
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.hero .fade-in').classList.add('visible');
+        });
+    </script>
+</body>
 </html>
